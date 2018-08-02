@@ -6,10 +6,32 @@ from .models import Funcionario, Departamento, Cargo, Projeto, Cliente, Custo, F
 
 # Register your models here.
 
-admin.site.register(Funcionario)
+class FuncionarioAdmin(admin.ModelAdmin):
+	list_display = ('nome_completo', 'telefone', 'email', 'num_registro', 'cargo')
+	search_fields = ('nome_completo', 'cargo', 'matricula', 'num_registro')
+	list_filter = ('nome_completo', 'cargo')
+
+class ProjetoAdmin(admin.ModelAdmin):
+	list_display = ('nome', 'valor', 'estado')
+	search_field = ('nome')
+	filter = ('estado')
+
+class ClienteAdmin(admin.ModelAdmin):
+	list_display = ('nome', 'num_registro', 'telefone', 'email')
+	search_fields = ('nome', 'num_registro')
+
+class CustoAdmin(admin.ModelAdmin):
+	list_display = ('nome', 'projeto')
+
+class FornecedorAdmin(admin.ModelAdmin):
+	list_display = ('nome', 'num_registro', 'telefone', 'email')
+	search_fields = ('nome', 'num_registro')
+
+
+admin.site.register(Funcionario, FuncionarioAdmin)
 admin.site.register(Departamento)
 admin.site.register(Cargo)
-admin.site.register(Projeto)
-admin.site.register(Cliente)
-admin.site.register(Custo)
-admin.site.register(Fornecedor)
+admin.site.register(Projeto, ProjetoAdmin)
+admin.site.register(Cliente, ClienteAdmin)
+admin.site.register(Custo, CustoAdmin)
+admin.site.register(Fornecedor, FornecedorAdmin)
